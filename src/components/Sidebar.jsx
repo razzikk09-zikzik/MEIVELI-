@@ -9,7 +9,7 @@ const NAV = [
     active: true,
     // filled house
     svg: (
-      <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="currentColor">
         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
       </svg>
     ),
@@ -20,7 +20,7 @@ const NAV = [
     href: '/report',
     active: false,
     svg: (
-      <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#DC2626">
+      <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="#DC2626">
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v6h-2V7zm0 8h2v2h-2v-2z"/>
       </svg>
     ),
@@ -31,7 +31,7 @@ const NAV = [
     href: '/threats',
     active: false,
     svg: (
-      <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#D97706">
+      <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="#D97706">
         <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
       </svg>
     ),
@@ -42,7 +42,7 @@ const NAV = [
     href: '/guide',
     active: false,
     svg: (
-      <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#16A34A">
+      <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="#16A34A">
         <path d="M21 4H3v16h18V4zm-10 14H5V6h6v12zm8 0h-6V6h6v12z"/>
       </svg>
     ),
@@ -53,7 +53,7 @@ const NAV = [
     href: '/help',
     active: false,
     svg: (
-      <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#2563EB">
+      <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="#2563EB">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
       </svg>
     ),
@@ -79,7 +79,7 @@ export default function Sidebar({ collapsed, onToggle }) {
       <div
         style={{
           height: '7.5rem',
-          padding: '0 0.875rem',
+          padding: '1rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: collapsed ? 'center' : 'space-between',
@@ -138,7 +138,7 @@ export default function Sidebar({ collapsed, onToggle }) {
       </div>
 
       {/* ── Nav ── */}
-      <nav style={{ flex: 1, padding: '0.75rem 0.625rem', display: 'flex', flexDirection: 'column', gap: '0.1875rem' }}>
+      <nav style={{ flex: 1, padding: '0.75rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.1875rem' }}>
         {NAV.map((item) => (
           <a
             key={item.id}
@@ -148,7 +148,8 @@ export default function Sidebar({ collapsed, onToggle }) {
               display: 'flex',
               alignItems: 'center',
               gap: '0.6875rem',
-              padding: collapsed ? '0.625rem 0' : '0.5625rem 0.75rem',
+              height: '2.75rem',
+              padding: collapsed ? '0' : '0 1rem',
               borderRadius: '0.625rem',
               textDecoration: 'none',
               background: item.active ? 'linear-gradient(to right, #1D6FF2, #4F7BF7)' : 'transparent',
@@ -166,7 +167,7 @@ export default function Sidebar({ collapsed, onToggle }) {
                 style={{
                   fontFamily: "var(--font-head)",
                   fontWeight: item.active ? '700' : '500',
-                  fontSize: '0.84375rem',
+                  fontSize: '1rem',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -188,19 +189,19 @@ export default function Sidebar({ collapsed, onToggle }) {
           flexShrink: 0,
         }}
       >
-        <div style={{ background: '#E0E7FF', padding: '0.5rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: collapsed ? 'center' : 'flex-start' }}>
-          <div style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50%', background: '#1D4ED8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <div style={{ background: '#E0E7FF', padding: '0.5rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', justifyContent: collapsed ? 'center' : 'flex-start' }}>
+          <div style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50%', background: '#1D4ED8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: collapsed ? '0' : '0.125rem' }}>
             <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#fff">
               <path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2z"/>
             </svg>
           </div>
           {!collapsed && (
-            <div className="sidebar-text">
+            <div className="sidebar-text" style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '0.75rem', color: '#1E3A8A' }}>
                 South Chennai
               </div>
-              <div style={{ fontFamily: "var(--font-body)", fontSize: '0.65625rem', color: '#3B82F6' }}>
-                Community-powered
+              <div style={{ fontFamily: "var(--font-body)", fontSize: '0.65625rem', color: '#3B82F6', whiteSpace: 'normal', lineHeight: '1.3' }}>
+                Community-powered safety
               </div>
             </div>
           )}

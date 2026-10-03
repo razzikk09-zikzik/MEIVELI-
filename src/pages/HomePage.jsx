@@ -19,7 +19,7 @@ export default function HomePage() {
       }}
     >
       {/* ══ ROW 1: Input card + Map card ══ */}
-      <div className="top-row-flex" style={{ display: 'flex', gap: '1rem', flex: 1, minHeight: '18rem' }}>
+      <div className="top-row-flex" style={{ display: 'flex', gap: '1rem', flex: 1, minHeight: '40%' }}>
         
         {/* ── Left: Is this suspicious? ── */}
         <div
@@ -67,7 +67,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
+          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
             {/* Textarea Area */}
             <div
               style={{
@@ -76,7 +76,8 @@ export default function HomePage() {
                 borderRadius: '0.625rem',
                 display: 'flex',
                 flexDirection: 'column',
-                height: '8rem',
+                flex: 1,
+                minHeight: '7rem',
               }}
             >
               <textarea
@@ -105,7 +106,7 @@ export default function HomePage() {
                     <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
                   </button>
                 </div>
-                <span style={{ fontSize: '0.6875rem', color: '#94a3b8' }}>{text.length}/1000</span>
+                <span style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>{text.length}/1000</span>
               </div>
             </div>
 
@@ -127,19 +128,20 @@ export default function HomePage() {
                 justifyContent: 'center',
                 gap: '0.375rem',
                 boxShadow: '0 4px 12px rgba(29, 111, 242, 0.25)',
+                flexShrink: 0,
               }}
             >
               Check Now
               <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
             
-            <div style={{ textAlign: 'center', fontSize: '0.75rem', color: '#334155' }}>
+            <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#334155' }}>
               Supports <span style={{ fontFamily: "var(--font-tamil)" }}>தமிழ்</span> · English · Tanglish · Private by default, nothing stored unless you report.
             </div>
             
             {/* Examples */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: 'auto' }}>
-              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Try an example:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.8125rem', color: '#64748b' }}>Try an example:</span>
               <div style={{ display: 'flex', gap: '0.375rem', flexWrap: 'wrap' }}>
                 {['Bank KYC', 'Courier', 'UPI', 'Electricity', 'Job scam'].map(tag => (
                   <button
@@ -150,7 +152,7 @@ export default function HomePage() {
                       background: '#EFF6FF',
                       border: '1px solid #BFDBFE',
                       borderRadius: '1rem',
-                      fontSize: '0.75rem',
+                      fontSize: '0.8125rem',
                       color: '#1D4ED8',
                       cursor: 'pointer',
                       transition: 'border-color 0.15s'
@@ -245,7 +247,7 @@ export default function HomePage() {
           padding: '1rem 1.25rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          gap: '0.875rem',
           flexShrink: 0,
         }}
       >
@@ -277,21 +279,22 @@ export default function HomePage() {
                   background: bgTint,
                   border: `1px solid ${borderColor}`,
                   borderRadius: '0.75rem',
-                  padding: '0.75rem',
+                  padding: '0.625rem',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  gap: '0.375rem',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
+                  height: '6rem',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = hoverBorder; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = borderColor; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
               >
-                <div style={{ width: '3.5rem', height: '3.5rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '2.75rem', height: '2.75rem', objectFit: 'contain' }} />
+                <div style={{ width: '3.25rem', height: '3.25rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '2.25rem', height: '2.25rem', objectFit: 'contain' }} />
                 </div>
-                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.875rem', color: '#1e293b' }}>{tile.label}</span>
+                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.8125rem', color: '#1e293b' }}>{tile.label}</span>
               </button>
             )
           })}
@@ -336,18 +339,19 @@ export default function HomePage() {
                 border: '1px solid #E8EDF5',
                 borderRadius: '0.75rem',
                 background: card.risk === 'high' ? 'linear-gradient(to right, #FEF2F2, #fff)' : 'linear-gradient(to right, #FFFBEB, #fff)',
-                padding: '0.875rem 1rem',
+                padding: '0.625rem 0.875rem',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.875rem',
+                gap: '0.75rem',
                 cursor: 'pointer',
                 minWidth: 0,
+                height: '5.5rem',
               }}
             >
-              <div style={{ width: '3.5rem', height: '3.5rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                <img src={card.iconUrl} alt="" style={{ width: '2.5rem', height: '2.5rem', objectFit: 'contain' }} />
+              <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                <img src={card.iconUrl} alt="" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <h3 className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '0.9375rem', color: '#0f172a' }}>
                     {card.title}
@@ -356,7 +360,7 @@ export default function HomePage() {
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginTop: '0.125rem' }}>
                   <span
                     style={{
                       background: card.risk === 'high' ? '#DC2626' : '#EA580C',
@@ -373,7 +377,7 @@ export default function HomePage() {
                     {card.risk} RISK
                   </span>
                 </div>
-                <p className="text-ellipsis-1" style={{ fontSize: '0.8125rem', color: '#334155', marginTop: '0.375rem' }}>
+                <p className="text-ellipsis-1" style={{ fontSize: '0.8125rem', color: '#334155', marginTop: '0.25rem' }}>
                   {card.desc}
                 </p>
               </div>

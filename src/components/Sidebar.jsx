@@ -64,7 +64,7 @@ const NAV = [
 export default function Sidebar({ collapsed, onToggle }) {
   return (
     <aside
-      className="sidebar"
+      className={`sidebar ${collapsed ? 'collapsed' : ''}`}
       style={{
         background: '#ffffff',
         borderRight: '1px solid #E8EDF5',

@@ -148,20 +148,42 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 767px) {
+  html, body, .app-shell, .main-content {
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+    overflow-x: hidden !important;
+    width: 100vw;
+  }
+  .page-scroll {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    overflow-y: visible !important;
+  }
+  .top-row-flex {
+    height: auto !important;
+    flex: none !important;
+  }
   .map-card-wrapper {
-    height: 45vh !important;
-    min-height: 45vh !important;
+    height: auto !important;
+    min-height: 0 !important;
+    flex: none !important;
   }
-  /* Prevent horizontal scroll on 390px */
-  html, body {
-    overflow-x: hidden;
-    width: 100vw;
+  .responsive-card {
+    flex: none !important;
   }
-  .app-shell {
-    width: 100vw;
+  .desktop-only {
+    display: none !important;
   }
-  .main-content {
-    width: 100vw;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+  .mobile-flex {
+    display: none !important;
   }
 }
 

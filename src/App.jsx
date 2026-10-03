@@ -4,6 +4,10 @@ import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import HomePage from './pages/HomePage';
 import ResultPage from './pages/ResultPage';
+import ReportPage from './pages/ReportPage';
+import ThreatsPage from './pages/ThreatsPage';
+import GuidePage from './pages/GuidePage';
+import HelpPage from './pages/HelpPage';
 import BottomTabBar from './components/BottomTabBar';
 import MobileTopBar from './components/MobileTopBar';
 
@@ -34,6 +38,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/result" element={<ResultPage />} />
+              <Route path="/report" element={<ReportPage />} />
+              <Route path="/threats" element={<ThreatsPage />} />
+              <Route path="/guide" element={<GuidePage />} />
+              <Route path="/help" element={<HelpPage />} />
             </Routes>
           </main>
           {isMobile && <BottomTabBar />}

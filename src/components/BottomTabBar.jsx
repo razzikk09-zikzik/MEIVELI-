@@ -13,6 +13,8 @@ const iconMap = {
 export default function BottomTabBar() {
   const location = useLocation();
 
+  const getRoute = (id) => id === 'home' ? '/' : `/${id}`;
+
   return (
     <nav
       style={{
@@ -31,12 +33,13 @@ export default function BottomTabBar() {
       }}
     >
       {navItems.slice(0, 5).map((item) => {
-        const isActive = location.pathname === '/' ? item.id === 'home' : false; // basic active state
+        const route = getRoute(item.id);
+        const isActive = location.pathname === route;
         const Icon = iconMap[item.icon];
         return (
           <Link
             key={item.id}
-            to="/"
+            to={route}
             style={{
               display: 'flex',
               flexDirection: 'column',

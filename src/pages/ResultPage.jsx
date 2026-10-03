@@ -27,22 +27,24 @@ export default function ResultPage() {
   }, [text]);
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center', maxWidth: '390px', margin: '0 auto', overflowX: 'hidden' }}>
-      <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '24px', marginBottom: '16px' }}>
-        {error ? 'Service Unavailable' : 'Checking your message...'}
-      </h1>
-      {error ? (
-        <div style={{ color: '#DC2626', marginBottom: '24px', padding: '16px', background: '#FEE2E2', borderRadius: '8px' }}>
-          Could not reach the analysis servers. Please check your connection and try again later.
-        </div>
-      ) : (
-        <p style={{ fontFamily: "'Inter', sans-serif", color: '#64748b', marginBottom: '24px', wordBreak: 'break-word' }}>
-          {result ? 'Analysis complete.' : text}
-        </p>
-      )}
-      <Link to="/" style={{ color: '#2563EB', textDecoration: 'none', fontWeight: '600' }}>
-        ← Back to Home
-      </Link>
+    <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+      <div style={{ background: '#ffffff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', padding: '1.5rem', textAlign: 'center' }}>
+        <h1 style={{ fontFamily: "var(--font-head)", fontSize: '1.5rem', marginBottom: '1rem' }}>
+          {error ? 'Service Unavailable' : 'Checking your message...'}
+        </h1>
+        {error ? (
+          <div style={{ color: '#DC2626', marginBottom: '1.5rem', padding: '1rem', background: '#FEE2E2', borderRadius: '0.5rem', fontSize: '16px' }}>
+            Could not reach the analysis servers. Please check your connection and try again later.
+          </div>
+        ) : (
+          <p style={{ fontFamily: "var(--font-body)", color: '#64748b', marginBottom: '1.5rem', wordBreak: 'break-word', fontSize: '16px' }}>
+            {result ? 'Analysis complete.' : text}
+          </p>
+        )}
+        <Link to="/" style={{ color: '#2563EB', textDecoration: 'none', fontWeight: '600', display: 'inline-flex', minHeight: '48px', alignItems: 'center', justifyContent: 'center' }}>
+          ← Back to Home
+        </Link>
+      </div>
     </div>
   );
 }

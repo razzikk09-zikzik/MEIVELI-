@@ -40,6 +40,18 @@ export default function MobileTopBar({ language, onLanguageToggle }) {
             }}
           >தமிழ்</button>
         </div>
+        
+        <button
+          id="analyst-access-btn"
+          style={{
+            width: '2rem', height: '2rem', borderRadius: '50%', border: '0.09375rem solid #7C3AED', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7C3AED', cursor: 'pointer'
+          }}
+        >
+          <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#7C3AED">
+            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+          </svg>
+        </button>
+
         <button
           style={{
             width: '2rem', height: '2rem', borderRadius: '50%', border: '0.09375rem solid #E2E8F0', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', position: 'relative'

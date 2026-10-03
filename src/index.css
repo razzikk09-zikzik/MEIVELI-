@@ -13,7 +13,7 @@ html {
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: linear-gradient(160deg, #F8FAFF 0%, #F4F7FF 100%);
+  background: linear-gradient(160deg, #EEF3FF 0%, #F5F0FF 100%);
   color: #1e293b;
   overflow: hidden;
   height: 100dvh;
@@ -140,4 +140,8 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+textarea:focus {
+  outline: 2px solid #BFDBFE !important;
 }

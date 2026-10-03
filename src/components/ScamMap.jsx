@@ -8,7 +8,7 @@ delete L.Icon.Default.prototype._getIconUrl;
 
 const hotspots = [
   { id: 'h1', name: 'Velachery', reports: 14, lat: 12.9815, lng: 80.2180, risk: 'high', direction: 'left', offset: [-15, 0] },
-  { id: 'h2', name: 'Sholinganallur', reports: 3, lat: 12.9010, lng: 80.2279, risk: 'high', direction: 'bottom', offset: [0, 15] },
+  { id: 'h2', name: 'Sholinganallur', reports: 3, lat: 12.9010, lng: 80.2279, risk: 'high', direction: 'left', offset: [-15, 0] },
   { id: 'h3', name: 'Adyar', reports: 3, lat: 13.0012, lng: 80.2565, risk: 'medium', direction: 'right', offset: [15, 0] },
   { id: 'h4', name: 'Perungudi', reports: 0, lat: 12.9654, lng: 80.2461, risk: 'medium', direction: 'top', offset: [0, -15], noLabel: true },
   { id: 'h5', name: 'Medavakkam', reports: 0, lat: 12.9231, lng: 80.1925, risk: 'medium', direction: 'bottom', offset: [0, 15], noLabel: true },
@@ -16,24 +16,29 @@ const hotspots = [
 ];
 
 function createHotspotIcon(risk) {
-  const colorMap = {
-    high: 'rgba(220, 38, 38,', // red
-    medium: 'rgba(234, 88, 12,', // orange
-    low: 'rgba(202, 138, 4,' // yellow
+  let size = 44;
+  let colorMap = {
+    high: { rgb: '220, 38, 38', hex: '#DC2626' }, // red
+    medium: { rgb: '234, 88, 12', hex: '#EA580C' }, // orange
+    low: { rgb: '234, 179, 8', hex: '#EAB308' } // yellow
   };
+  
+  if (risk === 'high') size = 56;
+  if (risk === 'low') size = 34;
+
   const baseColor = colorMap[risk] || colorMap.medium;
 
   const html = `
-    <div style="position:relative; width:48px; height:48px;">
-      <div style="position:absolute; top:50%; left:50%; width:12px; height:12px; border-radius:50%; background:${baseColor} 1); transform:translate(-50%,-50%); box-shadow:0 0 4px ${baseColor} 0.5); z-index:2; animation: pulse-dot 2s infinite;"></div>
-      <div style="position:absolute; top:50%; left:50%; width:48px; height:48px; border-radius:50%; background:radial-gradient(circle, ${baseColor} 0.4) 0%, transparent 70%); transform:translate(-50%,-50%); z-index:1; animation: pulse-ring 2s infinite;"></div>
+    <div style="position:relative; width:${size}px; height:${size}px;">
+      <div style="position:absolute; top:50%; left:50%; width:12px; height:12px; border-radius:50%; background:${baseColor.hex}; transform:translate(-50%,-50%); box-shadow:0 0 4px rgba(${baseColor.rgb}, 0.5); z-index:2; animation: pulse-dot 2s infinite;"></div>
+      <div style="position:absolute; top:50%; left:50%; width:${size}px; height:${size}px; border-radius:50%; background:radial-gradient(circle, rgba(${baseColor.rgb}, 0.4) 0%, transparent 70%); transform:translate(-50%,-50%); z-index:1; animation: pulse-ring 2s infinite;"></div>
     </div>
   `;
   return L.divIcon({
     html,
     className: '',
-    iconSize: [48, 48],
-    iconAnchor: [24, 24]
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2]
   });
 }
 
@@ -64,7 +69,7 @@ function MapController() {
 
 export default function ScamMap() {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '0.625rem', overflow: 'hidden', background: '#e5e7eb' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%', borderRadius: '0.625rem', overflow: 'hidden', background: '#e5e7eb', border: '1px solid #DBEAFE' }}>
       <MapContainer
         style={{ width: '100%', height: '100%' }}
         zoomControl={false}
@@ -75,7 +80,8 @@ export default function ScamMap() {
         <MapController />
         
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+          subdomains="abcd"
           maxZoom={19}
         />
         
@@ -93,7 +99,7 @@ export default function ScamMap() {
                   <div style={{ fontFamily: 'var(--font-head)', fontWeight: '700', fontSize: '0.75rem', color: '#1e293b' }}>
                     {spot.name}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.625rem', color: '#64748b', marginTop: '0.0625rem' }}>
+                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.625rem', color: '#DC2626', marginTop: '0.0625rem', fontWeight: '600' }}>
                     {spot.reports} reports
                   </div>
                 </div>
@@ -156,15 +162,15 @@ export default function ScamMap() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ width: '0.375rem', height: '0.375rem', borderRadius: '50%', background: '#DC2626' }} />
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.625rem', color: '#64748b' }}>High activity</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.72rem', color: '#334155', fontWeight: '500' }}>High activity</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ width: '0.375rem', height: '0.375rem', borderRadius: '50%', background: '#EA580C' }} />
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.625rem', color: '#64748b' }}>Medium activity</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.72rem', color: '#334155', fontWeight: '500' }}>Medium activity</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ width: '0.375rem', height: '0.375rem', borderRadius: '50%', background: '#CA8A04' }} />
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.625rem', color: '#64748b' }}>Low activity</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.72rem', color: '#334155', fontWeight: '500' }}>Low activity</span>
         </div>
       </div>
     </div>

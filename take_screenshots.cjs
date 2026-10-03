@@ -18,7 +18,7 @@ async function run() {
     await new Promise(r => setTimeout(r, 2000)); // wait for animations and map
     
     // Save to artifacts
-    const outPath = `C:\\Users\\Admin\\.gemini\\antigravity-ide\\brain\\3a648d4f-c33e-4eb6-8e6f-5558279df823\\test_${size.width}x${size.height}.png`;
+    const outPath = `C:\\Users\\Admin\\.gemini\\antigravity-ide\\brain\\42f1e531-6357-4781-a16a-8945a4321eb1\\test_${size.width}x${size.height}.png`;
     await page.screenshot({ path: outPath });
     console.log(`Saved ${outPath}`);
   }

@@ -1,14 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ScamMap from '../components/ScamMap';
 import { reportTiles, scamCards } from '../data/mock';
 
 export default function HomePage() {
-  const [text, setText] = useState('');
+  const location = useLocation();
+  const [text, setText] = useState(location.state?.sampleText || '');
   const [supportsSpeech] = useState('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [language, setLanguage] = useState('en');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.sampleText) {
+      setText(location.state.sampleText);
+      // Clear the state so it doesn't persist on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);

@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ReportPage() {
-  const [type, setType] = useState('sms');
+  const location = useLocation();
+  const [type, setType] = useState(location.state?.type || 'sms');
   const [text, setText] = useState('');
   const [lostMoney, setLostMoney] = useState('No'); // 'No' | 'Almost' | 'Yes'
   const [area, setArea] = useState('South Chennai');

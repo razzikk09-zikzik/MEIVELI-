@@ -77,10 +77,34 @@ export const navItems = [
 ];
 
 export const reportTiles = [
-  { id: 'sms', label: 'SMS', icon: 'MessageSquare', color: '#2563EB' },
-  { id: 'call', label: 'Phone Call', icon: 'Phone', color: '#16A34A' },
-  { id: 'whatsapp', label: 'WhatsApp', icon: 'MessageCircle', color: '#16A34A' },
-  { id: 'website', label: 'Website / URL', icon: 'Globe', color: '#2563EB' },
-  { id: 'upi', label: 'UPI / Payment', icon: 'IndianRupee', color: '#DC2626' },
-  { id: 'job', label: 'Job Offer', icon: 'Briefcase', color: '#7C3AED' },
+  { id: 'sms', label: 'SMS', iconUrl: '/assets/sms.png', color: '#2563EB' },
+  { id: 'call', label: 'Phone Call', iconUrl: '/assets/phone_call.png', color: '#16A34A' },
+  { id: 'whatsapp', label: 'WhatsApp', iconUrl: '/assets/whatsapp.png', color: '#16A34A' },
+  { id: 'website', label: 'Website / URL', iconUrl: '/assets/website_url.png', color: '#2563EB' },
+  { id: 'upi', label: 'UPI / Payment', iconUrl: '/assets/upi_payment.png', color: '#DC2626' },
+  { id: 'job', label: 'Job Offer', iconUrl: '/assets/job_offer.png', color: '#7C3AED' },
+];
+
+export const scamCards = [
+  {
+    id: 1,
+    title: 'Bank KYC Impersonation',
+    risk: 'high',
+    desc: 'Fake bank messages asking for OTP.',
+    iconUrl: '/assets/bank_kyc_impersonation.png',
+  },
+  {
+    id: 2,
+    title: 'Courier Refund Scam',
+    risk: 'medium',
+    desc: 'Fake delivery links asking for payment.',
+    iconUrl: '/assets/courier_refund_scam.png',
+  },
+  {
+    id: 3,
+    title: 'Fake Job Recruitment',
+    risk: 'high',
+    desc: 'Job offers asking for upfront money.',
+    iconUrl: '/assets/fake_job_recruitment.png',
+  },
 ];

@@ -4,16 +4,18 @@ export default function TopBar({ language, onLanguageToggle }) {
   return (
     <header
       style={{
-        height: '7.5rem',
-        minHeight: '7.5rem',
+        height: 'clamp(4.5rem, 11vh, 7rem)',
         background: '#ffffff',
-        borderBottom: '1px solid #E8EDF5',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
+        border: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0 1.375rem 0 1.5rem',
         flexShrink: 0,
         gap: '1rem',
+        overflow: 'hidden',
       }}
     >
       {/* ── Slot 1: Welcome text (shrink-0) ── */}
@@ -33,7 +35,7 @@ export default function TopBar({ language, onLanguageToggle }) {
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: '0.8125rem',
+            fontSize: '0.95rem',
             color: '#64748b',
             marginTop: '0.1875rem',
             fontWeight: '400',

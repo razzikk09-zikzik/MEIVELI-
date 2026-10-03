@@ -9,17 +9,9 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        padding: '0.875rem 1.25rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        height: '100%',
-      }}
-    >
+    <div style={{ display: 'contents' }}>
       {/* ══ ROW 1: Input card + Map card ══ */}
-      <div className="top-row-flex" style={{ display: 'flex', gap: '1rem', flex: 1, minHeight: '40%' }}>
+      <div className="top-row-flex" style={{ display: 'flex', gap: '0.75rem', height: '100%', minHeight: 0 }}>
         
         {/* ── Left: Is this suspicious? ── */}
         <div
@@ -67,7 +59,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
+          <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
             {/* Textarea Area */}
             <div
               style={{
@@ -77,7 +69,7 @@ export default function HomePage() {
                 display: 'flex',
                 flexDirection: 'column',
                 flex: 1,
-                minHeight: '7rem',
+                minHeight: '6rem',
               }}
             >
               <textarea
@@ -109,36 +101,11 @@ export default function HomePage() {
                 <span style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>{text.length}/1000</span>
               </div>
             </div>
-
-            <button
-              onClick={() => { if (text.trim()) navigate('/result', { state: { text } }); }}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '2rem',
-                border: 'none',
-                background: 'linear-gradient(90deg, #1D6FF2 0%, #7C5CF5 100%)',
-                color: '#fff',
-                fontFamily: "var(--font-head)",
-                fontWeight: '700',
-                fontSize: '0.9375rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.375rem',
-                boxShadow: '0 4px 12px rgba(29, 111, 242, 0.25)',
-                flexShrink: 0,
-              }}
-            >
-              Check Now
-              <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
             
             <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#334155' }}>
               Supports <span style={{ fontFamily: "var(--font-tamil)" }}>தமிழ்</span> · English · Tanglish · Private by default, nothing stored unless you report.
             </div>
-            
+
             {/* Examples */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.8125rem', color: '#64748b' }}>Try an example:</span>
@@ -165,6 +132,31 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+
+            <button
+              onClick={() => { if (text.trim()) navigate('/result', { state: { text } }); }}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                borderRadius: '2rem',
+                border: 'none',
+                background: 'linear-gradient(90deg, #1D6FF2 0%, #7C5CF5 100%)',
+                color: '#fff',
+                fontFamily: "var(--font-head)",
+                fontWeight: '700',
+                fontSize: '0.9375rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.375rem',
+                boxShadow: '0 4px 12px rgba(29, 111, 242, 0.25)',
+                flexShrink: 0,
+              }}
+            >
+              Check Now
+              <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
 
@@ -182,6 +174,7 @@ export default function HomePage() {
             flexDirection: 'column',
             gap: '0.75rem',
             minWidth: 0,
+            height: '100%'
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -211,6 +204,7 @@ export default function HomePage() {
               alignItems: 'center',
               justifyContent: 'space-between',
               cursor: 'pointer',
+              flexShrink: 0
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
@@ -244,16 +238,16 @@ export default function HomePage() {
           borderRadius: '1rem',
           border: 'none',
           boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-          padding: '1rem 1.25rem',
+          padding: '0.75rem 1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.875rem',
+          gap: '0.75rem',
           flexShrink: 0,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: '2.25rem', height: '2.25rem', borderRadius: '0.5rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#fff">
+          <div style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#fff">
               <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
             </svg>
           </div>
@@ -279,22 +273,23 @@ export default function HomePage() {
                   background: bgTint,
                   border: `1px solid ${borderColor}`,
                   borderRadius: '0.75rem',
-                  padding: '0.625rem',
+                  padding: '0.5rem',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '0.375rem',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
-                  height: '6rem',
+                  height: '5rem',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = hoverBorder; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = borderColor; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
               >
-                <div style={{ width: '3.25rem', height: '3.25rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '2.25rem', height: '2.25rem', objectFit: 'contain' }} />
+                <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '1.5rem', height: '1.5rem', objectFit: 'contain' }} />
                 </div>
-                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.8125rem', color: '#1e293b' }}>{tile.label}</span>
+                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.9rem', color: '#1e293b' }}>{tile.label}</span>
               </button>
             )
           })}
@@ -308,21 +303,21 @@ export default function HomePage() {
           borderRadius: '1rem',
           border: 'none',
           boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-          padding: '1rem 1.25rem',
+          padding: '0.75rem 1rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          gap: '0.75rem',
           flexShrink: 0,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <div style={{ width: '2.25rem', height: '2.25rem', borderRadius: '0.5rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#fff">
+            <div style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#fff">
                 <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
               </svg>
             </div>
-            <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.125rem', color: '#0f172a' }}>
+            <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.05rem', color: '#0f172a' }}>
               Common scams you should know about
             </h2>
           </div>
@@ -339,24 +334,24 @@ export default function HomePage() {
                 border: '1px solid #E8EDF5',
                 borderRadius: '0.75rem',
                 background: card.risk === 'high' ? 'linear-gradient(to right, #FEF2F2, #fff)' : 'linear-gradient(to right, #FFFBEB, #fff)',
-                padding: '0.625rem 0.875rem',
+                padding: '0.5rem 0.875rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.75rem',
                 cursor: 'pointer',
                 minWidth: 0,
-                height: '5.5rem',
+                height: '5rem',
               }}
             >
-              <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                <img src={card.iconUrl} alt="" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
+              <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                <img src={card.iconUrl} alt="" style={{ width: '1.75rem', height: '1.75rem', objectFit: 'contain' }} />
               </div>
               <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '0.9375rem', color: '#0f172a' }}>
+                  <h3 className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>
                     {card.title}
                   </h3>
-                  <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </div>
@@ -377,7 +372,7 @@ export default function HomePage() {
                     {card.risk} RISK
                   </span>
                 </div>
-                <p className="text-ellipsis-1" style={{ fontSize: '0.8125rem', color: '#334155', marginTop: '0.25rem' }}>
+                <p className="text-ellipsis-1" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '0.1875rem' }}>
                   {card.desc}
                 </p>
               </div>

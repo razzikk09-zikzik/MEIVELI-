@@ -148,7 +148,7 @@ export default function Sidebar({ collapsed, onToggle }) {
               display: 'flex',
               alignItems: 'center',
               gap: '0.6875rem',
-              height: '2.75rem',
+              height: '2.6rem',
               padding: collapsed ? '0' : '0 1rem',
               borderRadius: '0.625rem',
               textDecoration: 'none',

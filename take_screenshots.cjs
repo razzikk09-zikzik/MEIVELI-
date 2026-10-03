@@ -8,7 +8,7 @@ async function run() {
   const sizes = [
     { width: 1280, height: 720 },
     { width: 1366, height: 768 },
-    { width: 1586, height: 992 },
+    { width: 1906, height: 1075 },
     { width: 1920, height: 1080 }
   ];
 

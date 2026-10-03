@@ -4,11 +4,9 @@ export default function TopBar({ language, onLanguageToggle }) {
   return (
     <header
       style={{
-        height: 'clamp(4.5rem, 11vh, 7rem)',
+        height: '4.5rem',
         background: '#ffffff',
-        borderRadius: '1rem',
-        boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-        border: 'none',
+        borderBottom: '1px solid #E6EAF2',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -19,12 +17,12 @@ export default function TopBar({ language, onLanguageToggle }) {
       }}
     >
       {/* ── Slot 1: Welcome text (shrink-0) ── */}
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
         <h1
           style={{
             fontFamily: "var(--font-head)",
             fontWeight: '800',
-            fontSize: '1.75rem',
+            fontSize: '1.5rem',
             color: '#0f172a',
             lineHeight: 1.1,
             letterSpacing: '-0.025rem',
@@ -35,9 +33,8 @@ export default function TopBar({ language, onLanguageToggle }) {
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: '0.95rem',
+            fontSize: '0.85rem',
             color: '#64748b',
-            marginTop: '0.1875rem',
             fontWeight: '400',
           }}
         >

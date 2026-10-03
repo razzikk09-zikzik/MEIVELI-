@@ -8,41 +8,35 @@ export default function HomePage() {
   const [text, setText] = useState('');
   const navigate = useNavigate();
 
+  const cardStyle = {
+    background: '#ffffff',
+    border: '1px solid #E6EAF2',
+    borderRadius: '0.75rem',
+    boxShadow: '0 1px 3px rgba(16,24,40,0.05)',
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: 0,
+    overflow: 'hidden',
+  };
+
   return (
     <div style={{ display: 'contents' }}>
       {/* ══ ROW 1: Input card + Map card ══ */}
       <div className="top-row-flex" style={{ display: 'flex', gap: '0.75rem', height: '100%', minHeight: 0 }}>
         
         {/* ── Left: Is this suspicious? ── */}
-        <div
-          style={{
-            flex: 1,
-            background: '#fff',
-            borderRadius: '1rem',
-            border: 'none',
-            boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-            display: 'flex',
-            flexDirection: 'column',
-            minWidth: 0,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Gradient top border */}
-          <div style={{ height: '3px', background: 'linear-gradient(to right, #1D6FF2, #7C5CF5)', width: '100%' }} />
-
+        <div style={{ ...cardStyle, flex: 1, position: 'relative' }}>
           {/* Header */}
-          <div style={{ display: 'flex', gap: '0.875rem', padding: '1.25rem 1.25rem 0.5rem', background: 'linear-gradient(180deg, #EFF6FF 0%, transparent 100%)' }}>
+          <div style={{ display: 'flex', gap: '0.875rem', padding: '1.25rem 1.25rem 0.5rem', background: '#fff' }}>
             <div
               style={{
-                width: '3rem',
-                height: '3rem',
-                borderRadius: '50%',
-                background: '#DBEAFE',
+                width: '1.5rem',
+                height: '1.5rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
+                marginTop: '0.125rem'
               }}
             >
               <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -63,14 +57,17 @@ export default function HomePage() {
             {/* Textarea Area */}
             <div
               style={{
-                background: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '0.625rem',
+                background: '#fff',
+                border: '1px solid #E6EAF2',
+                borderRadius: '0.5rem',
                 display: 'flex',
                 flexDirection: 'column',
                 flex: 1,
                 minHeight: '6rem',
+                transition: 'border-color 0.2s'
               }}
+              onFocus={(e) => e.currentTarget.style.borderColor = '#93C5FD'}
+              onBlur={(e) => e.currentTarget.style.borderColor = '#E6EAF2'}
             >
               <textarea
                 value={text}
@@ -89,12 +86,12 @@ export default function HomePage() {
                   outline: 'none',
                 }}
               />
-              <div style={{ padding: '0.5rem 0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #E2E8F0' }}>
+              <div style={{ padding: '0.5rem 0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #E6EAF2' }}>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E2E8F0', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
+                  <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
                     <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                   </button>
-                  <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E2E8F0', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
+                  <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
                     <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
                   </button>
                 </div>
@@ -102,7 +99,7 @@ export default function HomePage() {
               </div>
             </div>
             
-            <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#334155' }}>
+            <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#475569' }}>
               Supports <span style={{ fontFamily: "var(--font-tamil)" }}>தமிழ்</span> · English · Tanglish · Private by default, nothing stored unless you report.
             </div>
 
@@ -116,16 +113,16 @@ export default function HomePage() {
                     onClick={() => setText(tag + " msg... ")}
                     style={{
                       padding: '0.25rem 0.625rem',
-                      background: '#EFF6FF',
-                      border: '1px solid #BFDBFE',
+                      background: '#fff',
+                      border: '1px solid #E6EAF2',
                       borderRadius: '1rem',
                       fontSize: '0.8125rem',
-                      color: '#1D4ED8',
+                      color: '#334155',
                       cursor: 'pointer',
                       transition: 'border-color 0.15s'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#60A5FA'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#BFDBFE'}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#93C5FD'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E6EAF2'}
                   >
                     {tag}
                   </button>
@@ -161,29 +158,12 @@ export default function HomePage() {
         </div>
 
         {/* ── Right: Map Card ── */}
-        <div
-          className="map-card-wrapper"
-          style={{
-            flex: 1,
-            background: '#fff',
-            borderRadius: '1rem',
-            border: 'none',
-            boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-            padding: '1rem 1.25rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.75rem',
-            minWidth: 0,
-            height: '100%'
-          }}
-        >
+        <div className="map-card-wrapper" style={{ ...cardStyle, flex: 1, padding: '1rem 1.25rem', gap: '0.75rem', height: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ width: '2.25rem', height: '2.25rem', borderRadius: '0.5rem', background: 'linear-gradient(135deg, #10B981, #059669)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="#fff">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
-                </svg>
-              </div>
+              <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
               <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '1.125rem', color: '#0f172a' }}>
                 Scams reported near you
               </h2>
@@ -196,8 +176,8 @@ export default function HomePage() {
 
           <div
             style={{
-              background: 'linear-gradient(to right, #FFF4E0, #FFE9C7)',
-              borderLeft: '4px solid #F59E0B',
+              background: '#FFF7E6',
+              border: '1px solid #FDE68A',
               borderRadius: '0.5rem',
               padding: '0.75rem 1rem',
               display: 'flex',
@@ -208,14 +188,14 @@ export default function HomePage() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
-              <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="#EA580C" style={{flexShrink: 0}}>
-                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+              <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}}>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
               <div style={{ minWidth: 0 }}>
                 <div style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '0.9375rem', color: '#DC2626' }}>
                   Active scam campaign reported
                 </div>
-                <div className="text-ellipsis-1" style={{ fontFamily: "var(--font-body)", fontSize: '0.8125rem', color: '#334155' }}>
+                <div className="text-ellipsis-1" style={{ fontFamily: "var(--font-body)", fontSize: '0.8125rem', color: '#475569' }}>
                   in Velachery, 14 reports this week.
                 </div>
               </div>
@@ -225,54 +205,34 @@ export default function HomePage() {
             </svg>
           </div>
 
-          <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
+          <div style={{ flex: 1, minHeight: 0, position: 'relative', borderRadius: '0.5rem', overflow: 'hidden', border: '1px solid #E6EAF2' }}>
             <ScamMap />
           </div>
         </div>
       </div>
 
       {/* ══ ROW 2: Report a scam ══ */}
-      <div
-        style={{
-          background: '#fff',
-          borderRadius: '1rem',
-          border: 'none',
-          boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-          padding: '0.75rem 1rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.75rem',
-          flexShrink: 0,
-        }}
-      >
+      <div style={{ ...cardStyle, padding: '0.75rem 1rem', gap: '0.75rem', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#fff">
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-            </svg>
-          </div>
+          <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
           <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.125rem', color: '#0f172a', lineHeight: 1 }}>
             Report a scam
           </h2>
-          <span style={{ fontSize: '0.875rem', color: '#334155', marginLeft: '0.25rem' }}>What did you receive?</span>
+          <span style={{ fontSize: '0.875rem', color: '#475569', marginLeft: '0.25rem' }}>What did you receive?</span>
         </div>
 
         <div className="report-tiles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem' }}>
           {reportTiles.map(tile => {
-            let bgTint = '#EFF6FF'; // default blue
-            if (tile.id === 'call' || tile.id === 'whatsapp') bgTint = '#DCFCE7';
-            else if (tile.id === 'upi') bgTint = '#FEE2E2';
-            else if (tile.id === 'job') bgTint = '#F3E8FF';
-            let borderColor = bgTint === '#EFF6FF' ? '#BFDBFE' : bgTint === '#DCFCE7' ? '#BBF7D0' : bgTint === '#FEE2E2' ? '#FECACA' : '#E9D5FF';
-            let hoverBorder = bgTint === '#EFF6FF' ? '#60A5FA' : bgTint === '#DCFCE7' ? '#86EFAC' : bgTint === '#FEE2E2' ? '#F87171' : '#C084FC';
-
+            const isWhatsapp = tile.id === 'whatsapp';
             return (
               <button
                 key={tile.id}
                 style={{
-                  background: bgTint,
-                  border: `1px solid ${borderColor}`,
-                  borderRadius: '0.75rem',
+                  background: '#fff',
+                  border: '1px solid #E6EAF2',
+                  borderRadius: '0.5rem',
                   padding: '0.5rem',
                   display: 'flex',
                   flexDirection: 'column',
@@ -283,13 +243,13 @@ export default function HomePage() {
                   transition: 'all 0.2s',
                   height: '5rem',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = hoverBorder; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = borderColor; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#2563EB'; e.currentTarget.style.boxShadow = '0 1px 4px rgba(37,99,235,0.1)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#E6EAF2'; e.currentTarget.style.boxShadow = 'none'; }}
               >
-                <div style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '1.5rem', height: '1.5rem', objectFit: 'contain' }} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '1.5rem', height: '1.5rem', objectFit: 'contain', filter: isWhatsapp ? 'none' : 'invert(27%) sepia(85%) saturate(2331%) hue-rotate(212deg) brightness(97%) contrast(92%)' }} />
                 </div>
-                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.9rem', color: '#1e293b' }}>{tile.label}</span>
+                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.9rem', color: '#0f172a' }}>{tile.label}</span>
               </button>
             )
           })}
@@ -297,26 +257,12 @@ export default function HomePage() {
       </div>
 
       {/* ══ ROW 3: Common Scams ══ */}
-      <div
-        style={{
-          background: '#fff',
-          borderRadius: '1rem',
-          border: 'none',
-          boxShadow: '0 4px 20px rgba(60,80,180,0.08)',
-          padding: '0.75rem 1rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.75rem',
-          flexShrink: 0,
-        }}
-      >
+      <div style={{ ...cardStyle, padding: '0.75rem 1rem', gap: '0.75rem', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <div style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="#fff">
-                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-              </svg>
-            </div>
+            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+            </svg>
             <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.05rem', color: '#0f172a' }}>
               Common scams you should know about
             </h2>
@@ -327,57 +273,65 @@ export default function HomePage() {
         </div>
 
         <div className="scam-cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-          {scamCards.map((card, i) => (
-            <div
-              key={card.id}
-              style={{
-                border: '1px solid #E8EDF5',
-                borderRadius: '0.75rem',
-                background: card.risk === 'high' ? 'linear-gradient(to right, #FEF2F2, #fff)' : 'linear-gradient(to right, #FFFBEB, #fff)',
-                padding: '0.5rem 0.875rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-                minWidth: 0,
-                height: '5rem',
-              }}
-            >
-              <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                <img src={card.iconUrl} alt="" style={{ width: '1.75rem', height: '1.75rem', objectFit: 'contain' }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h3 className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>
-                    {card.title}
-                  </h3>
-                  <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                    <polyline points="9 18 15 12 9 6"/>
-                  </svg>
+          {scamCards.map((card) => {
+            const isHigh = card.risk === 'high';
+            const bgTint = isHigh ? '#FFF5F5' : '#FFFBEB';
+            const badgeBg = isHigh ? '#FEE2E2' : '#FEF3C7';
+            const badgeColor = isHigh ? '#B91C1C' : '#B45309';
+            const iconColor = isHigh ? 'invert(16%) sepia(91%) saturate(7351%) hue-rotate(358deg) brightness(94%) contrast(114%)' : 'invert(52%) sepia(61%) saturate(3065%) hue-rotate(1deg) brightness(102%) contrast(105%)';
+
+            return (
+              <div
+                key={card.id}
+                style={{
+                  border: '1px solid #E6EAF2',
+                  borderRadius: '0.5rem',
+                  background: bgTint,
+                  padding: '0.5rem 0.875rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  cursor: 'pointer',
+                  minWidth: 0,
+                  height: '5rem',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <img src={card.iconUrl} alt="" style={{ width: '1.5rem', height: '1.5rem', objectFit: 'contain', filter: iconColor }} />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginTop: '0.125rem' }}>
-                  <span
-                    style={{
-                      background: card.risk === 'high' ? '#DC2626' : '#EA580C',
-                      color: '#fff',
-                      padding: '0.125rem 0.5rem',
-                      borderRadius: '1rem',
-                      fontSize: '0.625rem',
-                      fontWeight: '800',
-                      fontFamily: "var(--font-head)",
-                      textTransform: 'uppercase',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {card.risk} RISK
-                  </span>
+                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h3 className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>
+                      {card.title}
+                    </h3>
+                    <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginTop: '0.125rem' }}>
+                    <span
+                      style={{
+                        background: badgeBg,
+                        color: badgeColor,
+                        padding: '0.125rem 0.5rem',
+                        borderRadius: '1rem',
+                        fontSize: '0.625rem',
+                        fontWeight: '700',
+                        fontFamily: "var(--font-body)",
+                        textTransform: 'uppercase',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {card.risk} RISK
+                    </span>
+                  </div>
+                  <p className="text-ellipsis-1" style={{ fontSize: '0.85rem', color: '#475569', marginTop: '0.1875rem' }}>
+                    {card.desc}
+                  </p>
                 </div>
-                <p className="text-ellipsis-1" style={{ fontSize: '0.85rem', color: '#334155', marginTop: '0.1875rem' }}>
-                  {card.desc}
-                </p>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>

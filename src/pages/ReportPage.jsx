@@ -58,23 +58,7 @@ export default function ReportPage() {
   if (isDone) {
     return (
       <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '768px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1rem 0 2rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>1</div>
-            <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Type</span>
-          </div>
-          <div style={{ flex: 1, height: '1px', background: '#E8EEFA', margin: '0 0.5rem', marginBottom: '1.25rem', maxWidth: '4rem' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>2</div>
-            <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Details</span>
-          </div>
-          <div style={{ flex: 1, height: '1px', background: '#E8EEFA', margin: '0 0.5rem', marginBottom: '1.25rem', maxWidth: '4rem' }} />
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>3</div>
-            <span style={{ fontSize: '14px', color: '#2563EB', fontWeight: '600' }}>Done</span>
-          </div>
-        </div>
-        <div style={{ background: '#ffffff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '3rem 1.5rem' }}>
+        <div style={{ background: '#ffffff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '3rem 1.5rem', marginTop: '1rem' }}>
           <div style={{ width: '4rem', height: '4rem', borderRadius: '50%', background: '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
@@ -101,29 +85,13 @@ export default function ReportPage() {
       
       {/* 2. TITLE ROW */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem' }}>
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#0F1B4C', padding: '0.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', minWidth: '48px', minHeight: '48px', marginLeft: '-0.5rem' }}>
+        <button onClick={() => window.history.length > 2 ? navigate(-1) : navigate('/')} style={{ background: 'none', border: 'none', color: '#0F1B4C', padding: '0.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', minWidth: '48px', minHeight: '48px', marginLeft: '-0.5rem' }}>
           <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         </button>
         <h1 style={{ fontFamily: "var(--font-head)", fontSize: '22px', fontWeight: 600, color: '#0F1B4C' }}>Report a scam</h1>
       </div>
 
-      {/* 3. STEPPER */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0', height: '80px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>1</div>
-          <span style={{ fontSize: '14px', color: '#2563EB', fontWeight: '600' }}>Type</span>
-        </div>
-        <div style={{ flex: 1, height: '1px', background: '#E8EEFA', marginBottom: '22px', minWidth: '30px' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>2</div>
-          <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Details</span>
-        </div>
-        <div style={{ flex: 1, height: '1px', background: '#E8EEFA', marginBottom: '22px', minWidth: '30px' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>3</div>
-          <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Done</span>
-        </div>
-      </div>
+
 
       {/* 4. HEADLINE */}
       <div style={{ marginBottom: '20px' }}>

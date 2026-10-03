@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { reportTiles } from '../data/mock';
 
 export default function ReportPage() {
-  const [type, setType] = useState(null);
+  const [type, setType] = useState('sms');
   const [text, setText] = useState('');
-  const [lostMoney, setLostMoney] = useState(null); // 'No' | 'Almost' | 'Yes'
-  const [area, setArea] = useState('Velachery');
+  const [lostMoney, setLostMoney] = useState('No'); // 'No' | 'Almost' | 'Yes'
+  const [area, setArea] = useState('South Chennai');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
 
   const navigate = useNavigate();
 
-  const areas = ['Velachery', 'Adyar', 'Sholinganallur', 'Perungudi', 'Medavakkam', 'Tharamani', 'Other'];
+  const areas = ['South Chennai', 'Velachery', 'Adyar', 'Sholinganallur', 'Perungudi', 'Medavakkam', 'Tharamani', 'Other'];
 
   const redactText = (input) => {
     let redacted = input;
@@ -28,12 +27,7 @@ export default function ReportPage() {
     setIsSubmitting(true);
     const redactedText = redactText(text);
 
-    const payload = {
-      type,
-      text: redactedText,
-      lost_money: lostMoney,
-      area
-    };
+    const payload = { type, text: redactedText, lost_money: lostMoney, area };
 
     try {
       const res = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/api/report', {
@@ -43,67 +37,55 @@ export default function ReportPage() {
       });
       if (!res.ok) throw new Error('API failed');
     } catch (err) {
-      // Fallback: append to local state if needed (here we just log and proceed so the flow works)
       console.log('API failed, falling back to local. Payload:', payload);
     }
     
     setTimeout(() => {
       setIsSubmitting(false);
       setIsDone(true);
-    }, 800); // Simulate network delay if fallback
+    }, 800);
   };
 
-  const cardStyle = {
-    background: '#ffffff',
-    border: '1px solid #E6EAF2',
-    borderRadius: '0.75rem', // 12px
-    padding: '1.25rem',
-  };
+  const tiles = [
+    { id: 'sms', label: 'SMS', iconBg: '#E4EDFF', iconColor: '#2563EB', svg: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/> },
+    { id: 'call', label: 'Phone Call', iconBg: '#E3F6EA', iconColor: '#16A34A', svg: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/> },
+    { id: 'whatsapp', label: 'WhatsApp', iconBg: '#E3F6EA', iconColor: '#25D366', svg: <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/> },
+    { id: 'website', label: 'Website / URL', iconBg: '#E4EDFF', iconColor: '#2563EB', svg: <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/> },
+    { id: 'upi', label: 'UPI / Payment', iconBg: '#FDE8EC', iconColor: '#E11D48', svg: <path d="M6 3h12M6 8h12M9 13l3 3 3-3M12 3v13"/> },
+    { id: 'job', label: 'Job Offer', iconBg: '#F0E8FF', iconColor: '#7C3AED', svg: <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/> }
+  ];
 
   if (isDone) {
     return (
       <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '768px', margin: '0 auto' }}>
-        {/* Step Indicator */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '1rem 0 2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#E2E8F0', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>1</div>
-            <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Type</span>
+            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>1</div>
+            <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Type</span>
           </div>
-          <div style={{ width: '3rem', height: '1px', background: '#E2E8F0', margin: '0 0.5rem', marginBottom: '1rem' }} />
+          <div style={{ flex: 1, height: '1px', background: '#E8EEFA', margin: '0 0.5rem', marginBottom: '1.25rem', maxWidth: '4rem' }} />
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#E2E8F0', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>2</div>
-            <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Details</span>
+            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>2</div>
+            <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Details</span>
           </div>
-          <div style={{ width: '3rem', height: '1px', background: '#E2E8F0', margin: '0 0.5rem', marginBottom: '1rem' }} />
+          <div style={{ flex: 1, height: '1px', background: '#E8EEFA', margin: '0 0.5rem', marginBottom: '1.25rem', maxWidth: '4rem' }} />
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-            <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>3</div>
-            <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: '600' }}>Done</span>
+            <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '1.125rem' }}>3</div>
+            <span style={{ fontSize: '14px', color: '#2563EB', fontWeight: '600' }}>Done</span>
           </div>
         </div>
-
-        <div style={{ ...cardStyle, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '3rem 1.5rem' }}>
+        <div style={{ background: '#ffffff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '3rem 1.5rem' }}>
           <div style={{ width: '4rem', height: '4rem', borderRadius: '50%', background: '#DCFCE7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.5rem', color: '#0f172a' }}>Thank you.</h2>
-          <p style={{ color: '#475569', fontSize: '1rem', maxWidth: '300px' }}>Your report helps protect {area !== 'Other' ? area : 'your neighbours'}.</p>
-          <p style={{ color: '#64748b', fontSize: '0.875rem' }}>It has been added to the community map.</p>
-          
+          <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1.5rem', color: '#0F1B4C' }}>Thank you.</h2>
+          <p style={{ color: '#475E8A', fontSize: '1rem', maxWidth: '300px' }}>Your report helps protect {area !== 'Other' ? area : 'your neighbours'}.</p>
+          <p style={{ color: '#475E8A', fontSize: '0.875rem' }}>It has been added to the community map.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%', marginTop: '1rem' }}>
-            <button
-              onClick={() => navigate('/threats')}
-              style={{
-                width: '100%', padding: '0.875rem', borderRadius: '2rem', border: 'none', background: '#2563EB', color: '#fff', fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '48px'
-              }}
-            >
+            <button onClick={() => navigate('/threats')} style={{ width: '100%', padding: '0.875rem', borderRadius: '2rem', border: 'none', background: '#2563EB', color: '#fff', fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '48px' }}>
               View active threats
             </button>
-            <button
-              onClick={() => { setIsDone(false); setType(null); setText(''); setLostMoney(null); }}
-              style={{
-                width: '100%', padding: '0.875rem', borderRadius: '2rem', border: '1px solid #E6EAF2', background: '#fff', color: '#475569', fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '48px'
-              }}
-            >
+            <button onClick={() => { setIsDone(false); setType('sms'); setText(''); setLostMoney('No'); }} style={{ width: '100%', padding: '0.875rem', borderRadius: '2rem', border: '1px solid #E6EAF2', background: '#fff', color: '#475E8A', fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '48px' }}>
               Report another
             </button>
           </div>
@@ -112,85 +94,92 @@ export default function ReportPage() {
     );
   }
 
+  const isSubmitDisabled = !type || !text.trim();
+
   return (
-    <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '768px', margin: '0 auto' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#0f172a', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', minWidth: '48px', minHeight: '48px' }}>
+    <div style={{ padding: '0.75rem 1rem', display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '768px', margin: '0 auto', background: '#F6F8FC', minHeight: '100dvh' }}>
+      
+      {/* 2. TITLE ROW */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem' }}>
+        <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#0F1B4C', padding: '0.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', minWidth: '48px', minHeight: '48px', marginLeft: '-0.5rem' }}>
           <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         </button>
-        <h1 style={{ fontFamily: "var(--font-head)", fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>Report a scam</h1>
+        <h1 style={{ fontFamily: "var(--font-head)", fontSize: '22px', fontWeight: 600, color: '#0F1B4C' }}>Report a scam</h1>
       </div>
 
-      {/* Step Indicator */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0.5rem 0' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-          <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>1</div>
-          <span style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: '600' }}>Type</span>
+      {/* 3. STEPPER */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0', height: '80px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
+          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#2563EB', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>1</div>
+          <span style={{ fontSize: '14px', color: '#2563EB', fontWeight: '600' }}>Type</span>
         </div>
-        <div style={{ width: '3rem', height: '1px', background: '#E2E8F0', margin: '0 0.5rem', marginBottom: '1rem' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-          <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#F1F5F9', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>2</div>
-          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Details</span>
+        <div style={{ flex: 1, height: '1px', background: '#E8EEFA', marginBottom: '22px', minWidth: '30px' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
+          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>2</div>
+          <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Details</span>
         </div>
-        <div style={{ width: '3rem', height: '1px', background: '#E2E8F0', margin: '0 0.5rem', marginBottom: '1rem' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
-          <div style={{ width: '2rem', height: '2rem', borderRadius: '50%', background: '#F1F5F9', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600' }}>3</div>
-          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>Done</span>
+        <div style={{ flex: 1, height: '1px', background: '#E8EEFA', marginBottom: '22px', minWidth: '30px' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', width: '60px' }}>
+          <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#E8EEFA', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '18px' }}>3</div>
+          <span style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>Done</span>
         </div>
       </div>
 
-      {/* Intro */}
-      <div>
-        <h2 style={{ fontFamily: "var(--font-head)", fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>Help protect your neighbours.</h2>
-        <p style={{ color: '#475569', fontSize: '1rem', marginTop: '0.25rem' }}>Takes under a minute.</p>
+      {/* 4. HEADLINE */}
+      <div style={{ marginBottom: '20px' }}>
+        <h2 style={{ fontFamily: "var(--font-head)", fontSize: '26px', fontWeight: 700, color: '#0F1B4C', lineHeight: 1.1 }}>Help protect your neighbours.</h2>
+        <p style={{ color: '#475E8A', fontSize: '18px', marginTop: '4px' }}>Takes under a minute.</p>
       </div>
 
-      {/* Type selection */}
-      <div style={{ marginTop: '0.5rem' }}>
-        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a', marginBottom: '0.75rem' }}>What type of scam is this?</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
-          {reportTiles.map(tile => {
+      {/* 5. TYPE TILES */}
+      <div style={{ marginBottom: '20px' }}>
+        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '18px', color: '#0F1B4C', marginBottom: '8px' }}>What type of scam is this?</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
+          {tiles.map(tile => {
             const isSelected = type === tile.id;
-            const isWhatsapp = tile.id === 'whatsapp';
             return (
               <button
                 key={tile.id}
                 onClick={() => setType(tile.id)}
                 style={{
-                  background: isSelected ? '#EFF6FF' : '#fff',
-                  border: `1px solid ${isSelected ? '#2563EB' : '#E6EAF2'}`,
-                  borderRadius: '0.5rem',
-                  padding: '0.75rem 0.5rem',
+                  background: isSelected ? '#EAF1FF' : '#fff',
+                  border: isSelected ? '2px solid #2563EB' : '1px solid #E3E9F5',
+                  borderRadius: '14px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
+                  padding: isSelected ? '0 11px' : '0 12px', // adjust for 2px border
+                  gap: '12px',
                   cursor: 'pointer',
-                  minHeight: '48px',
+                  height: '60px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
+                  minWidth: 0,
                   transition: 'all 0.15s'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, width: '2rem', height: '2rem', background: isSelected ? '#fff' : 'transparent', borderRadius: '50%' }}>
-                  <img src={tile.iconUrl} alt={tile.label} style={{ width: '1.25rem', height: '1.25rem', objectFit: 'contain', filter: isWhatsapp ? 'none' : 'invert(27%) sepia(85%) saturate(2331%) hue-rotate(212deg) brightness(97%) contrast(92%)' }} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, width: '44px', height: '44px', background: tile.iconBg, borderRadius: '50%' }}>
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke={tile.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {tile.svg}
+                  </svg>
                 </div>
-                <span style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.875rem', color: isSelected ? '#1E3A8A' : '#0f172a' }}>{tile.label}</span>
+                <span className="text-ellipsis-1" style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '16px', color: '#0F1B4C', textAlign: 'left' }}>{tile.label}</span>
               </button>
             )
           })}
         </div>
       </div>
 
-      {/* Textarea */}
-      <div style={{ marginTop: '0.5rem' }}>
-        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a', marginBottom: '0.75rem' }}>Paste the message, link or number</h3>
+      {/* 6. TEXTAREA */}
+      <div style={{ marginBottom: '20px' }}>
+        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '18px', color: '#0F1B4C', marginBottom: '8px' }}>Paste the message, link or number</h3>
         <div
           style={{
             background: '#fff',
-            border: '1px solid #E6EAF2',
-            borderRadius: '0.5rem',
+            border: '1px solid #D5DDEE',
+            borderRadius: '14px',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: '8rem',
+            minHeight: '110px',
+            overflow: 'hidden'
           }}
         >
           <textarea
@@ -202,135 +191,143 @@ export default function ReportPage() {
               width: '100%',
               border: 'none',
               background: 'transparent',
-              padding: '0.875rem',
+              padding: '12px',
               fontFamily: "var(--font-body)",
-              fontSize: 'max(16px, 0.875rem)',
-              color: '#1e293b',
+              fontSize: '16px',
+              color: '#0F1B4C',
               resize: 'none',
               outline: 'none',
+              minHeight: '60px'
             }}
           />
-          <div style={{ padding: '0.5rem 0.875rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <button style={{ padding: '0.375rem', background: '#F1F5F9', border: 'none', borderRadius: '0.25rem', display: 'flex' }}>
-              <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <div style={{ padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <button style={{ width: '40px', height: '40px', background: '#E4EDFF', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </button>
-            <span style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>{text.length}/1000</span>
+            <span style={{ fontSize: '14px', color: '#94a3b8', paddingBottom: '4px' }}>{text.length}/1000</span>
           </div>
         </div>
       </div>
 
-      {/* Lost Money Segmented Control */}
-      <div style={{ marginTop: '0.5rem' }}>
-        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a', marginBottom: '0.75rem' }}>Did you lose money?</h3>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          {['No', 'Almost', 'Yes'].map(opt => (
-            <button
-              key={opt}
-              onClick={() => setLostMoney(opt)}
-              style={{
-                flex: 1,
-                padding: '0.75rem',
-                borderRadius: '0.5rem',
-                border: lostMoney === opt ? '1px solid #2563EB' : '1px solid transparent',
-                background: lostMoney === opt ? '#fff' : '#F1F5F9',
-                color: lostMoney === opt ? '#2563EB' : '#475569',
-                fontFamily: "var(--font-head)",
-                fontWeight: '700',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                minHeight: '48px',
-                transition: 'all 0.15s'
-              }}
-            >
-              {opt}
-            </button>
-          ))}
+      {/* 7. MONEY CONTROL */}
+      <div style={{ marginBottom: '20px' }}>
+        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '18px', color: '#0F1B4C', marginBottom: '8px' }}>Did you lose money?</h3>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {['No', 'Almost', 'Yes'].map(opt => {
+            const isSelected = lostMoney === opt;
+            return (
+              <button
+                key={opt}
+                onClick={() => setLostMoney(opt)}
+                style={{
+                  flex: 1,
+                  height: '48px',
+                  borderRadius: '12px',
+                  border: isSelected ? '2px solid #2563EB' : '1px solid transparent',
+                  background: isSelected ? '#fff' : '#EEF2FB',
+                  color: isSelected ? '#2563EB' : '#475E8A',
+                  fontFamily: "var(--font-head)",
+                  fontWeight: '600',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s'
+                }}
+              >
+                {opt}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* Where did this happen? */}
-      <div style={{ marginTop: '0.5rem' }}>
-        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a', marginBottom: '0.75rem' }}>Where did this happen?</h3>
+      {/* 8. AREA */}
+      <div style={{ marginBottom: '20px' }}>
+        <h3 style={{ fontFamily: "var(--font-head)", fontWeight: '600', fontSize: '18px', color: '#0F1B4C', marginBottom: '8px' }}>Where did this happen?</h3>
         <div style={{ position: 'relative' }}>
           <select
             value={area}
             onChange={(e) => setArea(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.875rem 1rem',
-              borderRadius: '0.5rem',
-              border: '1px solid #E6EAF2',
+              height: '52px',
+              padding: '0 40px',
+              borderRadius: '12px',
+              border: '1px solid #D5DDEE',
               background: '#fff',
               fontFamily: "var(--font-body)",
               fontSize: '16px',
-              color: '#0f172a',
+              color: '#0F1B4C',
               appearance: 'none',
               outline: 'none',
-              minHeight: '48px',
               cursor: 'pointer',
             }}
           >
             {areas.map(a => <option key={a} value={a}>{a}</option>)}
           </select>
-          <div style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
-            <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <div style={{ position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
-            {/* The mockup shows a map pin inside the dropdown box. I'll pad the select to the left. */}
-            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
         </div>
-        <style>{`select { padding-left: 3rem !important; }`}</style>
       </div>
 
-      {/* Lock Line */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', background: '#F1F5F9', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem' }}>
-        <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#334155" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: '0.125rem' }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      {/* 9. PRIVACY NOTE */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#EAF1FF', padding: '16px', borderRadius: '12px', marginBottom: '20px' }}>
+        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <div>
-          <div style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.875rem', color: '#1e293b' }}>Anonymous. We never ask for your name or phone number.</div>
-          <div style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '0.125rem' }}>This helps keep you and others safe.</div>
+          <div style={{ fontFamily: "var(--font-head)", fontWeight: '500', fontSize: '16px', color: '#0F1B4C' }}>Your report is anonymous by default.</div>
+          <div style={{ fontSize: '14px', color: '#475E8A', marginTop: '2px' }}>This helps keep you and others safe.</div>
         </div>
       </div>
 
-      {/* Submit Button */}
+      {/* 10. SUBMIT */}
       <button
         onClick={handleSubmit}
-        disabled={!type || !text.trim() || isSubmitting}
+        disabled={isSubmitDisabled || isSubmitting}
         style={{
           width: '100%',
-          padding: '0.875rem',
-          borderRadius: '2rem',
+          height: '56px',
+          borderRadius: '28px',
           border: 'none',
-          background: (!type || !text.trim()) ? '#E2E8F0' : '#2563EB',
-          color: (!type || !text.trim()) ? '#94A3B8' : '#fff',
+          background: isSubmitDisabled ? '#E8EEFA' : 'linear-gradient(90deg, #1D6FF2 0%, #7C5CF5 100%)',
+          color: isSubmitDisabled ? '#8BA1CC' : '#fff',
           fontFamily: "var(--font-head)",
-          fontWeight: '700',
-          fontSize: '1rem',
+          fontWeight: '600',
+          fontSize: '18px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.5rem',
-          minHeight: '48px',
-          marginTop: '1rem',
-          cursor: (!type || !text.trim()) ? 'not-allowed' : 'pointer'
+          gap: '8px',
+          cursor: isSubmitDisabled ? 'not-allowed' : 'pointer',
+          flexShrink: 0
         }}
       >
         {isSubmitting ? (
-          <span style={{ display: 'inline-block', width: '1rem', height: '1rem', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+          <span style={{ display: 'inline-block', width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
         ) : (
-          <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         )}
         Submit report
       </button>
-
-      {(!type || !text.trim()) && (
-        <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#64748b', marginTop: '0.75rem' }}>
-          Please select a scam type and enter some details to submit.
+      
+      {isSubmitDisabled && (
+        <div style={{ textAlign: 'center', fontSize: '13px', color: '#475E8A', marginTop: '12px' }}>
+          Please select a scam type and enter details to submit.
         </div>
       )}
-      
+
       <style>{`
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Add text-ellipsis just in case */
+        .text-ellipsis-1 {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       `}</style>
     </div>
   );

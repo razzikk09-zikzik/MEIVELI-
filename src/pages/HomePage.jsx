@@ -6,6 +6,7 @@ import { reportTiles, scamCards } from '../data/mock';
 
 export default function HomePage() {
   const [text, setText] = useState('');
+  const [supportsSpeech] = useState('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
   const navigate = useNavigate();
 
   const cardStyle = {
@@ -22,7 +23,7 @@ export default function HomePage() {
   return (
     <div style={{ display: 'contents' }}>
       {/* ══ ROW 1: Input card + Map card ══ */}
-      <div className="top-row-flex" style={{ display: 'flex', gap: '0.75rem', height: '100%', minHeight: 0 }}>
+      <div className="top-row-flex" style={{ display: 'flex', gap: '0.75rem', minHeight: 0 }}>
         
         {/* ── Left: Is this suspicious? ── */}
         <div style={{ ...cardStyle, flex: 1, position: 'relative' }}>
@@ -80,7 +81,7 @@ export default function HomePage() {
                   background: 'transparent',
                   padding: '0.75rem 0.875rem',
                   fontFamily: "var(--font-body)",
-                  fontSize: '0.875rem',
+                  fontSize: 'max(16px, 0.875rem)',
                   color: '#1e293b',
                   resize: 'none',
                   outline: 'none',
@@ -91,9 +92,11 @@ export default function HomePage() {
                   <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
                     <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                   </button>
-                  <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
-                    <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-                  </button>
+                  {supportsSpeech && (
+                    <button style={{ padding: '0.25rem', background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex' }}>
+                      <svg width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                    </button>
+                  )}
                 </div>
                 <span style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>{text.length}/1000</span>
               </div>
@@ -158,7 +161,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Right: Map Card ── */}
-        <div className="map-card-wrapper" style={{ ...cardStyle, flex: 1, padding: '1rem 1.25rem', gap: '0.75rem', height: '100%' }}>
+        <div className="map-card-wrapper" style={{ ...cardStyle, flex: 1, padding: '1rem 1.25rem', gap: '0.75rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

@@ -28,139 +28,251 @@ export default function HomePage() {
   };
 
   const renderMobile = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      {/* 1. Heading */}
-      <div style={{ padding: '0.5rem 0' }}>
-        <h1 style={{ fontFamily: "var(--font-head)", fontSize: '1.75rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>Check. Stay Safe.</h1>
-        <p style={{ color: '#475569', fontSize: '0.9375rem', marginTop: '0.25rem' }}>Stop scams before you click.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      
+      {/* 3. Heading */}
+      <div style={{ marginTop: '8px' }}>
+        <h1 style={{ fontFamily: "var(--font-head)", fontSize: '28px', fontWeight: 700, color: '#0F1B4C', lineHeight: 1.1 }}>Check. Stay Safe.</h1>
+        <p style={{ color: '#475E8A', fontSize: '18px', marginTop: '4px' }}>Stop scams before you click.</p>
       </div>
 
-      {/* 2. Input Card */}
-      <div style={{ ...cardStyle, padding: '0.75rem', gap: '0.5rem' }}>
+      {/* 4. Input Card */}
+      <div
+        style={{
+          background: '#fff',
+          border: '1px solid #D5DDEE',
+          borderRadius: '14px',
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '120px',
+          overflow: 'hidden',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+        }}
+      >
         <textarea
+          id="scam-check-input"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste a message, link, or upload a screenshot"
           style={{
+            flex: 1,
             width: '100%',
-            minHeight: '7rem',
             border: 'none',
             background: 'transparent',
+            padding: '12px',
             fontFamily: "var(--font-body)",
-            fontSize: 'max(16px, 0.875rem)',
-            color: '#1e293b',
+            fontSize: '16px',
+            color: '#0F1B4C',
             resize: 'none',
             outline: 'none',
+            minHeight: '80px'
           }}
         />
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <button style={{ padding: '0.375rem', background: '#F1F5F9', border: 'none', borderRadius: '0.25rem', display: 'flex' }}>
-              <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <div style={{ padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button style={{ width: '40px', height: '40px', background: '#E4EDFF', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </button>
             {supportsSpeech && (
-              <button style={{ padding: '0.375rem', background: '#F1F5F9', border: 'none', borderRadius: '0.25rem', display: 'flex' }}>
-                <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+              <button style={{ width: '40px', height: '40px', background: '#E4EDFF', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
               </button>
             )}
-            <button style={{ padding: '0.375rem', background: '#F1F5F9', border: 'none', borderRadius: '0.25rem', display: 'flex' }}>
-              <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <button
+              onClick={async () => {
+                try {
+                  const clip = await navigator.clipboard.readText();
+                  setText((prev) => prev + (prev ? ' ' : '') + clip);
+                  document.getElementById('scam-check-input').focus();
+                } catch(e) {}
+              }}
+              style={{ width: '40px', height: '40px', background: '#E4EDFF', border: 'none', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+            >
+              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="#0F1B4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
             </button>
           </div>
-          <span style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>{text.length}/1000</span>
+          <span style={{ fontSize: '14px', color: '#94a3b8', paddingBottom: '4px' }}>{text.length}/1000</span>
         </div>
       </div>
 
-      {/* 3. Language Chips */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <span style={{ fontSize: '0.8125rem', color: '#64748b', fontWeight: 600 }}>Language:</span>
-        <button onClick={() => setLanguage('en')} style={{ padding: '0.25rem 0.75rem', borderRadius: '1rem', border: 'none', background: language === 'en' ? '#2563EB' : '#E2E8F0', color: language === 'en' ? '#fff' : '#475569', fontSize: '0.8125rem', fontWeight: 600 }}>English</button>
-        <button onClick={() => setLanguage('ta')} style={{ padding: '0.25rem 0.75rem', borderRadius: '1rem', border: 'none', background: language === 'ta' ? '#2563EB' : '#E2E8F0', color: language === 'ta' ? '#fff' : '#475569', fontSize: '0.8125rem', fontWeight: 600 }}>தமிழ்</button>
-        <button onClick={() => setLanguage('tg')} style={{ padding: '0.25rem 0.75rem', borderRadius: '1rem', border: 'none', background: language === 'tg' ? '#2563EB' : '#E2E8F0', color: language === 'tg' ? '#fff' : '#475569', fontSize: '0.8125rem', fontWeight: 600 }}>Tanglish</button>
+      {/* 5 & 6. Check Button & Chips */}
+      <div>
+        <button
+          onClick={() => { if (text.trim()) navigate('/result', { state: { text } }); }}
+          disabled={!text.trim()}
+          style={{
+            width: '100%',
+            height: '56px',
+            borderRadius: '28px',
+            border: 'none',
+            background: !text.trim() ? '#E8EEFA' : 'linear-gradient(90deg, #1D6FF2 0%, #7C5CF5 100%)',
+            color: !text.trim() ? '#8BA1CC' : '#fff',
+            fontFamily: "var(--font-head)",
+            fontWeight: '600',
+            fontSize: '18px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            cursor: !text.trim() ? 'not-allowed' : 'pointer'
+          }}
+        >
+          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Check for Scam
+        </button>
+
+        <div style={{ textAlign: 'center', fontSize: '13px', color: '#475E8A', marginTop: '16px', marginBottom: '12px' }}>
+          Supports <span style={{ fontFamily: "var(--font-tamil)" }}>தமிழ்</span> · English · Tanglish · Private by default
+        </div>
+
+        <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          {[
+            { label: 'Bank KYC', icon: <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></>, color: '#E11D48', bg: '#FDE8EC' },
+            { label: 'Courier', icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>, color: '#EA580C', bg: '#FFEDD5' },
+            { label: 'UPI', icon: <><path d="M6 3h12M6 8h12M9 13l3 3 3-3M12 3v13"/></>, color: '#9333EA', bg: '#F3E8FF' },
+            { label: 'Electricity', icon: <><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>, color: '#D97706', bg: '#FEF3C7' },
+            { label: 'Job scam', icon: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></>, color: '#2563EB', bg: '#DBEAFE' }
+          ].map(chip => (
+            <button
+              key={chip.label}
+              onClick={() => {
+                if (chip.label === 'Bank KYC') {
+                  setText("Sir ungal SBI account block aagidum. Inga click pannunga: sbi-kyc-update.in/verify");
+                } else {
+                  setText(`${chip.label} sample message...`);
+                }
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 14px',
+                background: '#fff',
+                border: '1px solid #D5DDEE',
+                borderRadius: '20px',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer',
+                fontFamily: "var(--font-head)",
+                fontWeight: '600',
+                fontSize: '14px',
+                color: '#0F1B4C',
+                height: '40px'
+              }}
+            >
+              <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: chip.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="12px" height="12px" viewBox="0 0 24 24" fill="none" stroke={chip.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{chip.icon}</svg>
+              </div>
+              {chip.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* 4. Check Now Button */}
+      {/* 7. Report Button */}
       <button
-        onClick={() => { if (text.trim()) navigate('/result', { state: { text } }); }}
+        onClick={() => navigate('/report')}
         style={{
           width: '100%',
-          padding: '0.875rem',
-          borderRadius: '2rem',
-          border: 'none',
-          background: 'linear-gradient(90deg, #1D6FF2 0%, #7C5CF5 100%)',
-          color: '#fff',
+          height: '56px',
+          borderRadius: '14px',
+          border: '1px solid #E11D48',
+          background: '#FFF5F5',
+          color: '#E11D48',
           fontFamily: "var(--font-head)",
           fontWeight: '700',
-          fontSize: '1rem',
+          fontSize: '18px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.5rem',
-          boxShadow: '0 4px 12px rgba(29, 111, 242, 0.25)',
+          gap: '8px',
+          cursor: 'pointer'
         }}
       >
-        <svg width="1rem" height="1rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        Check for Scam
+        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Report a scam
+        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 'auto', marginRight: '8px' }}><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
-      {/* 5. Quick Actions Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', marginTop: '0.5rem' }}>
-        <button onClick={() => navigate('/report')} style={{ background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', padding: '0.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-          <div style={{ width: '2rem', height: '2rem', background: '#FEE2E2', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {/* 8. Live Alerts */}
+      <div style={{ marginBottom: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <div>
+              <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '20px', color: '#0F1B4C', lineHeight: 1.1 }}>Live alerts</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', color: '#475E8A', marginTop: '4px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#25D366' }} />
+                Updated 5 min ago
+              </div>
+            </div>
           </div>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', lineHeight: 1.2 }}>Report<br/>a Scam</span>
-        </button>
-        <button onClick={() => navigate('/threats')} style={{ background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', padding: '0.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-          <div style={{ width: '2rem', height: '2rem', background: '#DCFCE7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', lineHeight: 1.2 }}>Check<br/>Number</span>
-        </button>
-        <button onClick={() => navigate('/threats')} style={{ background: '#fff', border: '1px solid #E6EAF2', borderRadius: '0.75rem', padding: '0.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-          <div style={{ width: '2rem', height: '2rem', background: '#F3E8FF', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#9333EA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          </div>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#0f172a', textAlign: 'center', lineHeight: 1.2 }}>Check<br/>UPI ID</span>
-        </button>
-      </div>
-
-      {/* 6. Recent Alerts Card */}
-      <div style={{ ...cardStyle, marginTop: '0.5rem' }}>
-        <div style={{ padding: '0.75rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E6EAF2' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <h2 style={{ fontFamily: "var(--font-head)", fontWeight: '800', fontSize: '1rem', color: '#0f172a' }}>Recent Alerts</h2>
-          </div>
-          <button onClick={() => navigate('/threats')} style={{ fontSize: '0.8125rem', color: '#2563EB', fontWeight: 600, background: 'none', border: 'none' }}>View All →</button>
+          <button onClick={() => navigate('/threats')} style={{ fontSize: '15px', color: '#2563EB', fontWeight: 600, background: 'none', border: 'none', display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+            View all <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
         
-        {/* Amber Campaign Strip */}
-        <div onClick={() => navigate('/threats')} style={{ background: '#FFF7E6', padding: '0.75rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'center', borderBottom: '1px solid #E6EAF2' }}>
-          <svg width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none" stroke="#EA580C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink: 0}}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.875rem', color: '#DC2626' }}>Active scam campaign reported</div>
-            <div style={{ fontSize: '0.75rem', color: '#475569' }}>in Velachery, 14 reports this week.</div>
-          </div>
-          <span style={{ color: '#DC2626', fontSize: '0.625rem', fontWeight: 700, background: '#FEE2E2', padding: '0.125rem 0.375rem', borderRadius: '1rem' }}>SCAM</span>
-        </div>
-
-        {/* 2 Scam Cards */}
-        {scamCards.slice(0, 2).map((card, idx) => {
-          const isHigh = card.risk === 'high';
-          const badgeBg = isHigh ? '#FEE2E2' : '#FEF3C7';
-          const badgeColor = isHigh ? '#B91C1C' : '#B45309';
-          return (
-            <div key={card.id} style={{ padding: '0.75rem 1rem', display: 'flex', gap: '0.75rem', alignItems: 'center', borderBottom: idx === 0 ? '1px solid #E6EAF2' : 'none' }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '0.875rem', color: '#0f172a' }}>{card.title}</div>
-                <div style={{ fontSize: '0.75rem', color: '#475569' }}>{card.desc}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {[
+            { id: 0, title: 'Active scam campaign', desc: '14 reports this week', area: 'Velachery', time: '2 hrs ago', risk: 'HIGH', tint: '#FFF7E6', iconBg: '#FFEDD5', iconColor: '#EA580C', icon: <><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></> },
+            { id: 1, title: 'Bank KYC Impersonation', desc: 'Fake bank messages asking for OTP', area: 'Adyar', time: '4 hrs ago', risk: 'HIGH', tint: '#FFF5F5', iconBg: '#FDE8EC', iconColor: '#E11D48', icon: <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></> },
+            { id: 2, title: 'Courier Refund Scam', desc: 'Fake delivery links asking for payment', area: 'Sholinganallur', time: 'Today', risk: 'MEDIUM', tint: '#FFFBEB', iconBg: '#FEF3C7', iconColor: '#D97706', icon: <><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></> }
+          ].map(card => {
+            const isHigh = card.risk === 'HIGH';
+            const badgeBg = isHigh ? '#FEE2E2' : '#FFEDD5';
+            const badgeColor = isHigh ? '#E11D48' : '#D97706';
+            
+            return (
+              <div
+                key={card.id}
+                onClick={() => navigate('/threats')}
+                style={{
+                  background: card.tint,
+                  borderRadius: '16px',
+                  padding: '16px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '12px',
+                  cursor: 'pointer'
+                }}
+              >
+                <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: card.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke={card.iconColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {card.icon}
+                  </svg>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div style={{ fontFamily: "var(--font-head)", fontWeight: '700', fontSize: '16px', color: '#0F1B4C' }}>{card.title}</div>
+                    <span style={{ background: badgeBg, color: badgeColor, padding: '2px 8px', borderRadius: '12px', fontSize: '11px', fontWeight: '800', fontFamily: "var(--font-body)", letterSpacing: '0.5px' }}>
+                      {card.risk}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#475E8A', marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {card.desc}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', fontSize: '13px', color: '#475E8A' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#2563EB', fontWeight: '500' }}>
+                      <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      {card.area}
+                    </div>
+                    <span style={{ color: '#CBD5E1' }}>|</span>
+                    {card.time}
+                  </div>
+                </div>
               </div>
-              <span style={{ color: badgeColor, fontSize: '0.625rem', fontWeight: 700, background: badgeBg, padding: '0.125rem 0.375rem', borderRadius: '1rem', textTransform: 'uppercase' }}>{isHigh ? 'SCAM' : 'SUSPICIOUS'}</span>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
+      
+      <style>{`
+        /* Hide scrollbar for chips */
+        div::-webkit-scrollbar { display: none; }
+      `}</style>
     </div>
   );
 
